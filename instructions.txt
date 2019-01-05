@@ -15,6 +15,6 @@ BadBank Homework Instructions
     - API
 
 3) Persist data
-    - Maintain state
+    - Mantain state
 
 4) Demo    
