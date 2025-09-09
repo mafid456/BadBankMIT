@@ -1,20 +1,17 @@
-# Use official Node.js image as base
-FROM node:18-alpine
+FROM node:18-bullseye
 
-# Set working directory inside the container
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json first for better caching
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install --production
+# Install build dependencies for node-gyp
+RUN apt-get update && apt-get install -y python3 make g++ \
+    && npm install --production \
+    && apt-get purge -y python3 make g++ \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy the rest of the project files
 COPY . .
 
-# Expose the port your app will run on
 EXPOSE 8080
-
-# Start the Node.js server
 CMD ["node", "server.js"]
