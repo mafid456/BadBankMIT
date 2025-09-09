@@ -137,7 +137,7 @@ ui.default = `
     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
         <div class="card-header">Welcome</div>
         <div class="card-body">
-            <p class="card-text">Welcome to the Bad Bank by Rajesh Ramatchandran. This is the result of the MIT Digital Transformation Online Course. I'm happy to spend your money :-). Merry Christmas and a Happy New Year</p>
+            <p class="card-text">Welcome to the Bad Bank by Mafid basha. This is the result of the MIT Digital Transformation Online Course. I'm happy to spend your money :-). Happy Dasara To All The people.</p>
         </div>
     </div>
 `;
