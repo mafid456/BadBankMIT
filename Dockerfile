@@ -1,24 +1,20 @@
-# Use Debian-based Node image (NOT Alpine, avoids musl issues with grpc)
+# Use official Node.js LTS image (Debian-based, not Alpine, to avoid grpc issues)
 FROM node:18-bullseye
 
 # Set working directory
 WORKDIR /usr/src/app
 
-# Copy dependency files first (cache)
+# Copy package files
 COPY package*.json ./
 
-# Install build dependencies (needed for grpc/node-gyp)
-RUN apt-get update && apt-get install -y python3 make g++ \
-    && npm install --production \
-    && apt-get purge -y python3 make g++ \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+# Install dependencies (production only)
+RUN npm install --omit=dev
 
 # Copy the rest of the app
 COPY . .
 
-# Expose port (adjust if your server.js uses another)
+# Expose app port
 EXPOSE 8080
 
-# Start app
+# Run the server
 CMD ["node", "server.js"]
