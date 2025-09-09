@@ -1,20 +1,20 @@
-# Use official Node.js LTS image (Debian-based, not Alpine, to avoid grpc issues)
-FROM node:18-bullseye
+# Use official Node.js LTS image (Debian-based for compatibility)
+FROM node:18-slim
 
-# Set working directory
+# Create app directory
 WORKDIR /usr/src/app
 
-# Copy package files
+# Copy package files first (for better caching)
 COPY package*.json ./
 
-# Install dependencies (production only)
+# Install dependencies
 RUN npm install --omit=dev
 
-# Copy the rest of the app
+# Copy rest of the project files
 COPY . .
 
-# Expose app port
+# Expose port (must match your server.js -> PORT 8080)
 EXPOSE 8080
 
-# Run the server
+# Start the server
 CMD ["node", "server.js"]
